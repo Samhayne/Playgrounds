@@ -10,9 +10,6 @@ class PLAYGROUNDALPHA_API AMyActor : public AActor
 {
 	GENERATED_BODY()	
 
-private:
-	void UpdateDPS();
-
 public:	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
 	int32 TotalDamage;
@@ -24,7 +21,7 @@ public:
 	float DamagePerSecond;
 
 	// Sets default values for this actor's properties
-	AMyActor();
+	AMyActor();	
 
 	virtual void PostInitProperties() override;
 	
@@ -36,6 +33,12 @@ public:
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
 
-	
+	UFUNCTION(BlueprintImplementableEvent, Category = "Damage")
+	void CalledFromCpp();
+
+	UFUNCTION(BlueprintCallable, Category = "Damage")
+		void CalculateValues();
+
+private:
 	
 };

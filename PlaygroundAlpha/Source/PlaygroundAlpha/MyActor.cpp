@@ -4,11 +4,6 @@
 #include "MyActor.h"
 
 
-void AMyActor::UpdateDPS()
-{
-	DamagePerSecond = TotalDamage / DamageTimeInSeconds;
-}
-
 // Sets default values
 AMyActor::AMyActor()
 {
@@ -22,14 +17,16 @@ AMyActor::AMyActor()
 void AMyActor::PostInitProperties()
 {
 	Super::PostInitProperties();	
-	UpdateDPS();
+	CalculateValues();
 }
 
+#if WITH_EDITOR
 void AMyActor::PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent)
 {
 	Super::PostEditChangeProperty(PropertyChangedEvent);
-	UpdateDPS();
+	CalculateValues();
 }
+#endif
 
 // Called when the game starts or when spawned
 void AMyActor::BeginPlay()
@@ -42,6 +39,16 @@ void AMyActor::BeginPlay()
 void AMyActor::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
-
+	CalledFromCpp();
 }
+
+void AMyActor::CalculateValues()
+{
+	DamagePerSecond = TotalDamage / DamageTimeInSeconds;
+}
+
+//void AMyActor::CalledFromCpp()
+//{
+//	//TotalDamage = FMath::RandRange(0, 400);
+//}
 
